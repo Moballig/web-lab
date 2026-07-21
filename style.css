@@ -1,0 +1,1736 @@
+/*==========================================
+  GOOGLE FONT & RESET
+==========================================*/
+
+:root {
+
+    --primary: #2563eb;
+    --primary-dark: #1d4ed8;
+    --secondary: #3b82f6;
+
+    --dark: #0f172a;
+    --text: #475569;
+    --white: #ffffff;
+
+    --border: #e2e8f0;
+    --bg: #f8fafc;
+
+    --shadow: 0 15px 35px rgba(0,0,0,.08);
+    --shadow-hover: 0 20px 45px rgba(37,99,235,.15);
+
+    --radius: 18px;
+    --transition: .3s ease;
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:'Poppins',sans-serif;
+    background:var(--bg);
+    color:var(--dark);
+    line-height:1.7;
+
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+section{
+
+    padding:90px 8%;
+
+}
+
+/*==========================================
+ HERO
+==========================================*/
+
+.hero{
+
+    min-height:95vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    background:
+    linear-gradient(
+        135deg,
+        #eff6ff,
+        #dbeafe,
+        #f8fafc
+    );
+
+}
+
+.hero-content{
+
+    max-width:850px;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:10px 22px;
+
+    background:#dbeafe;
+
+    color:var(--primary);
+
+    border-radius:100px;
+
+    font-size:.9rem;
+
+    font-weight:600;
+
+    margin-bottom:30px;
+
+}
+
+.hero h1{
+
+    font-size:4rem;
+
+    font-weight:700;
+
+    color:var(--dark);
+
+    margin-bottom:25px;
+
+    line-height:1.2;
+
+}
+
+.hero-text{
+
+    font-size:1.2rem;
+
+    color:var(--text);
+
+    margin-bottom:45px;
+
+}
+
+/*==========================================
+ BUTTONS
+==========================================*/
+
+.hero-buttons{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.btn{
+
+    text-decoration:none;
+
+    padding:15px 35px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    transition:var(--transition);
+
+    cursor:pointer;
+
+}
+
+.btn-primary{
+
+    background:var(--primary);
+
+    color:white;
+
+}
+
+.btn-primary:hover{
+
+    background:var(--primary-dark);
+
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+.btn-outline{
+
+    border:2px solid var(--primary);
+
+    color:var(--primary);
+
+}
+
+.btn-outline:hover{
+
+    background:var(--primary);
+
+    color:white;
+
+    transform:translateY(-4px);
+
+}
+
+/*==========================================
+ SECTION TITLE
+==========================================*/
+
+.section-title{
+
+    max-width:760px;
+
+    margin:auto;
+
+    text-align:center;
+
+    margin-bottom:70px;
+
+}
+
+.section-title h2{
+
+    font-size:2.5rem;
+
+    margin-bottom:18px;
+
+}
+
+.section-title p{
+
+    color:var(--text);
+
+    font-size:1.05rem;
+
+}
+
+/*==========================================
+ FEATURE GRID
+==========================================*/
+
+.feature-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:30px;
+
+}
+
+.feature-card{
+
+    background:white;
+
+    padding:40px 30px;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+    border:1px solid transparent;
+
+}
+
+.feature-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:#bfdbfe;
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+.feature-icon{
+
+    width:70px;
+
+    height:70px;
+
+    border-radius:50%;
+
+    background:#dbeafe;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:2rem;
+
+    margin-bottom:25px;
+
+}
+
+.feature-card h3{
+
+    margin-bottom:15px;
+
+    font-size:1.35rem;
+
+}
+
+.feature-card p{
+
+    color:var(--text);
+
+}
+
+/*==========================================
+ INFO SECTION
+==========================================*/
+
+.info-section{
+
+    background:white;
+
+}
+
+.info-section:nth-child(even){
+
+    background:#f8fafc;
+
+}
+
+/*==========================================
+  ACTIVITY GRID
+==========================================*/
+
+.activity-grid{
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+
+}
+
+.activity-card{
+
+    background:#ffffff;
+    border-radius:var(--radius);
+    padding:35px;
+    box-shadow:var(--shadow);
+
+    transition:var(--transition);
+
+    border-top:5px solid var(--primary);
+
+}
+
+.activity-card:hover{
+
+    transform:translateY(-8px);
+    box-shadow:var(--shadow-hover);
+
+}
+
+.activity-card h3{
+
+    margin-bottom:22px;
+    font-size:1.35rem;
+    color:var(--dark);
+
+}
+
+.activity-card ul{
+
+    list-style:none;
+
+}
+
+.activity-card li{
+
+    position:relative;
+
+    padding-left:24px;
+    margin-bottom:14px;
+
+    color:var(--text);
+
+}
+
+.activity-card li::before{
+
+    content:"✓";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+
+    color:var(--primary);
+    font-weight:700;
+
+}
+
+/*==========================================
+ COMMUNITY SECTION
+==========================================*/
+
+.community-section{
+
+    background:linear-gradient(
+        135deg,
+        #eff6ff,
+        #f8fbff
+    );
+
+}
+
+.community-content{
+
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+
+}
+
+.community-content p{
+
+    font-size:1.08rem;
+    color:var(--text);
+    margin-bottom:55px;
+
+}
+
+/*==========================================
+ HIGHLIGHTS
+==========================================*/
+
+.highlight-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+
+    gap:22px;
+
+}
+
+.highlight-item{
+
+    background:#fff;
+
+    padding:22px 24px;
+
+    border-radius:14px;
+
+    box-shadow:var(--shadow);
+
+    font-weight:500;
+
+    transition:var(--transition);
+
+}
+
+.highlight-item:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:var(--shadow-hover);
+
+}
+
+/*==========================================
+ REGISTRATION HEADER
+==========================================*/
+
+.registration-header{
+
+    text-align:center;
+
+    padding:90px 8% 50px;
+
+    background:#ffffff;
+
+}
+
+.registration-header h2{
+
+    font-size:2.6rem;
+
+    margin-bottom:20px;
+
+    color:var(--dark);
+
+}
+
+.registration-header p{
+
+    max-width:700px;
+
+    margin:auto;
+
+    color:var(--text);
+
+    font-size:1.05rem;
+
+}
+
+/*==========================================
+ OPTIONAL DIVIDER
+==========================================*/
+
+.registration-header::after{
+
+    content:"";
+
+    display:block;
+
+    width:120px;
+
+    height:5px;
+
+    margin:35px auto 0;
+
+    border-radius:50px;
+
+    background:linear-gradient(
+        90deg,
+        var(--primary),
+        var(--secondary)
+    );
+
+}
+
+/*==========================================
+ SIMPLE FADE ANIMATION
+==========================================*/
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.hero,
+.info-section,
+.community-section,
+.registration-header{
+
+    animation:fadeUp .8s ease both;
+
+}
+
+/*==========================================
+ RESPONSIVE
+==========================================*/
+
+@media(max-width:992px){
+
+    section{
+
+        padding:70px 6%;
+
+    }
+
+    .hero h1{
+
+        font-size:3rem;
+
+    }
+
+    .section-title h2{
+
+        font-size:2.1rem;
+
+    }
+
+    .registration-header h2{
+
+        font-size:2.2rem;
+
+    }
+
+}
+
+@media(max-width:768px){
+
+    .hero{
+
+        min-height:85vh;
+
+    }
+
+    .hero h1{
+
+        font-size:2.4rem;
+
+    }
+
+    .hero-text{
+
+        font-size:1rem;
+
+    }
+
+    .hero-buttons{
+
+        flex-direction:column;
+
+    }
+
+    .btn{
+
+        width:100%;
+        max-width:320px;
+        text-align:center;
+
+    }
+
+    .section-title{
+
+        margin-bottom:50px;
+
+    }
+
+    .section-title h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .activity-card,
+    .feature-card{
+
+        padding:28px;
+
+    }
+
+}
+
+@media(max-width:480px){
+
+    section{
+
+        padding:60px 20px;
+
+    }
+
+    .hero h1{
+
+        font-size:2rem;
+
+    }
+
+    .badge{
+
+        font-size:.8rem;
+        padding:8px 18px;
+
+    }
+
+    .registration-header h2{
+
+        font-size:1.8rem;
+
+    }
+
+    .feature-icon{
+
+        width:60px;
+        height:60px;
+        font-size:1.6rem;
+
+    }
+
+}
+
+/*=========================================================
+  REGISTRATION FORM
+=========================================================*/
+
+.container{
+
+    width:min(1200px,92%);
+    margin:0 auto 100px;
+
+}
+
+.registration-card{
+
+    background:#ffffff;
+
+    border-radius:24px;
+
+    box-shadow:0 20px 60px rgba(0,0,0,.08);
+
+    overflow:hidden;
+
+}
+
+/*=========================================================
+  HEADER
+=========================================================*/
+
+.form-header{
+
+    text-align:center;
+
+    padding:70px 50px;
+
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #3b82f6
+    );
+
+    color:#ffffff;
+
+}
+
+.club-logo{
+
+    width:110px;
+    height:110px;
+
+    object-fit:contain;
+
+    margin:0 auto 25px;
+
+}
+
+.form-header h1{
+
+    font-size:2.6rem;
+
+    margin-bottom:18px;
+
+    font-weight:700;
+
+}
+
+.form-header p{
+
+    max-width:720px;
+
+    margin:auto;
+
+    line-height:1.8;
+
+    opacity:.95;
+
+}
+
+/*=========================================================
+  FORM
+=========================================================*/
+
+#registrationForm{
+
+    padding:70px;
+
+}
+
+/*=========================================================
+  FORM SECTION
+=========================================================*/
+
+.form-section{
+
+    margin-bottom:70px;
+
+}
+
+.form-section:last-child{
+
+    margin-bottom:30px;
+
+}
+
+.form-section h2{
+
+    position:relative;
+
+    margin-bottom:40px;
+
+    font-size:1.8rem;
+
+    color:#0f172a;
+
+}
+
+.form-section h2::after{
+
+    content:"";
+
+    width:70px;
+
+    height:4px;
+
+    background:#2563eb;
+
+    position:absolute;
+
+    left:0;
+    bottom:-12px;
+
+    border-radius:50px;
+
+}
+
+/*=========================================================
+  GRID
+=========================================================*/
+
+.grid-2{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:28px;
+
+    margin-bottom:28px;
+
+}
+
+.grid-3{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:28px;
+
+}
+
+/*=========================================================
+  FORM GROUP
+=========================================================*/
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-bottom:28px;
+
+}
+
+.form-group label{
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+    color:#1e293b;
+
+}
+
+/*=========================================================
+  INPUT
+=========================================================*/
+
+.form-group input,
+
+.form-group select,
+
+.form-group textarea{
+
+    width:100%;
+
+    padding:15px 18px;
+
+    font-size:15px;
+
+    font-family:"Poppins",sans-serif;
+
+    border:2px solid #dbe4ef;
+
+    border-radius:14px;
+
+    outline:none;
+
+    transition:.3s;
+
+    background:#ffffff;
+
+}
+
+/*=========================================================
+  PLACEHOLDER
+=========================================================*/
+
+input::placeholder,
+
+textarea::placeholder{
+
+    color:#94a3b8;
+
+}
+
+/*=========================================================
+  SELECT
+=========================================================*/
+
+select{
+
+    cursor:pointer;
+
+}
+
+/*=========================================================
+  TEXTAREA
+=========================================================*/
+
+textarea{
+
+    resize:vertical;
+
+    min-height:150px;
+
+    line-height:1.7;
+
+}
+
+/*=========================================================
+  INPUT EFFECT
+=========================================================*/
+
+.form-group input:hover,
+
+.form-group textarea:hover,
+
+.form-group select:hover{
+
+    border-color:#93c5fd;
+
+}
+
+.form-group input:focus,
+
+.form-group textarea:focus,
+
+.form-group select:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:
+    0 0 0 4px rgba(37,99,235,.12);
+
+}
+
+/*=========================================================
+  READ ONLY
+=========================================================*/
+
+input[readonly]{
+
+    background:#f8fafc;
+
+    cursor:not-allowed;
+
+}
+
+/*=========================================================
+  ERROR MESSAGE
+=========================================================*/
+
+.error{
+
+    margin-top:8px;
+
+    font-size:.85rem;
+
+    color:#dc2626;
+
+    min-height:18px;
+
+}
+
+/*=========================================================
+  RADIO BUTTONS
+=========================================================*/
+
+.radio-group{
+
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px;
+    margin-top:8px;
+
+}
+
+.radio-group label{
+
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    padding:12px 18px;
+
+    border:2px solid #dbe4ef;
+    border-radius:12px;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.radio-group label:hover{
+
+    border-color:#2563eb;
+    background:#eff6ff;
+
+}
+
+.radio-group input[type="radio"]{
+
+    width:18px;
+    height:18px;
+
+    accent-color:#2563eb;
+
+    cursor:pointer;
+
+}
+
+/*=========================================================
+  CHECKBOX GRID
+=========================================================*/
+
+.checkbox-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:15px;
+
+    margin-top:12px;
+
+}
+
+.checkbox-grid label{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:14px 18px;
+
+    border:2px solid #dbe4ef;
+
+    border-radius:12px;
+
+    background:#ffffff;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:500;
+
+}
+
+.checkbox-grid label:hover{
+
+    border-color:#2563eb;
+
+    background:#eff6ff;
+
+}
+
+.checkbox-grid input{
+
+    width:18px;
+    height:18px;
+
+    accent-color:#2563eb;
+
+    cursor:pointer;
+
+}
+/* Payment Information */
+
+.section-description{
+
+    color:#64748b;
+
+    margin-bottom:30px;
+
+}
+
+.payment-box{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+
+    gap:25px;
+
+    margin-bottom:35px;
+
+}
+
+.payment-card{
+
+    background:#eff6ff;
+
+    border:2px solid #bfdbfe;
+
+    border-radius:16px;
+
+    padding:25px;
+
+}
+
+.payment-card h1{
+
+    font-size:2.5rem;
+
+    color:#2563eb;
+
+    margin:15px 0;
+
+}
+
+.payment-card h3{
+
+    margin-bottom:10px;
+
+}
+
+.payment-card p{
+
+    margin-bottom:10px;
+
+    color:#334155;
+
+}
+
+.payment-card small{
+
+    display:block;
+
+    margin-top:15px;
+
+    color:#64748b;
+
+}
+/*=========================================================
+  AGREEMENT
+=========================================================*/
+
+.agreement{
+
+    padding:25px;
+
+    background:#f8fafc;
+
+    border-radius:16px;
+
+    border:2px solid #e2e8f0;
+
+}
+
+.checkbox-label{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:14px;
+
+    cursor:pointer;
+
+    line-height:1.8;
+
+    font-weight:500;
+
+}
+
+.checkbox-label input{
+
+    margin-top:4px;
+
+    width:20px;
+    height:20px;
+
+    accent-color:#2563eb;
+
+}
+
+/*=========================================================
+  CHARACTER COUNTER
+=========================================================*/
+
+.character-count{
+
+    text-align:right;
+
+    margin-top:10px;
+
+    color:#64748b;
+
+    font-size:.85rem;
+
+}
+
+/*=========================================================
+  BUTTON GROUP
+=========================================================*/
+
+.button-group{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+    margin-top:40px;
+
+}
+
+/*=========================================================
+  FORM BUTTONS
+=========================================================*/
+
+.button-group .btn{
+
+    min-width:200px;
+
+    padding:15px 35px;
+
+    border:none;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.button-group .btn-primary{
+
+    background:#2563eb;
+
+    color:#fff;
+
+}
+
+.button-group .btn-primary:hover{
+
+    background:#1d4ed8;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+}
+
+.button-group .btn-primary:disabled{
+
+    background:#94a3b8;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+.button-group .btn-secondary{
+
+    background:#e2e8f0;
+
+    color:#334155;
+
+}
+
+.button-group .btn-secondary:hover{
+
+    background:#cbd5e1;
+
+    transform:translateY(-3px);
+
+}
+
+/*=========================================================
+  VALIDATION STATES
+=========================================================*/
+
+input.valid,
+select.valid,
+textarea.valid{
+
+    border-color:#16a34a;
+
+}
+
+input.invalid,
+select.invalid,
+textarea.invalid{
+
+    border-color:#dc2626;
+
+}
+
+/*=========================================================
+  REQUIRED STAR
+=========================================================*/
+
+label span.required{
+
+    color:#dc2626;
+
+    margin-left:4px;
+
+}
+
+/*=========================================================
+  SMOOTH TRANSITIONS
+=========================================================*/
+
+input,
+select,
+textarea,
+button,
+label{
+
+    transition:all .3s ease;
+
+}
+
+/*=========================================================
+  LOADING OVERLAY
+=========================================================*/
+
+.loading-overlay{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.75);
+
+    backdrop-filter:blur(6px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    visibility:hidden;
+
+    opacity:0;
+
+    transition:.35s ease;
+
+    z-index:9999;
+
+}
+
+.loading-overlay.active{
+
+    visibility:visible;
+
+    opacity:1;
+
+}
+
+.loading-overlay h3{
+
+    color:#fff;
+
+    margin-top:25px;
+
+    font-size:1.5rem;
+
+}
+
+.loading-overlay p{
+
+    color:#e2e8f0;
+
+    margin-top:10px;
+
+}
+
+/*=========================================================
+  LOADER
+=========================================================*/
+
+.loader{
+
+    width:70px;
+
+    height:70px;
+
+    border:6px solid rgba(255,255,255,.2);
+
+    border-top:6px solid #ffffff;
+
+    border-radius:50%;
+
+    animation:spin .8s linear infinite;
+
+}
+
+@keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+/*=========================================================
+  SUCCESS MODAL
+=========================================================*/
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(15,23,42,.65);
+
+    backdrop-filter:blur(5px);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    visibility:hidden;
+
+    opacity:0;
+
+    transition:.3s ease;
+
+    z-index:9998;
+
+}
+
+.modal.active{
+
+    visibility:visible;
+
+    opacity:1;
+
+}
+
+.modal-content{
+
+    width:min(500px,90%);
+
+    background:#ffffff;
+
+    border-radius:22px;
+
+    padding:45px;
+
+    text-align:center;
+
+    box-shadow:0 25px 60px rgba(0,0,0,.18);
+
+    animation:popup .35s ease;
+
+}
+
+@keyframes popup{
+
+    from{
+
+        transform:scale(.85);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/*=========================================================
+  SUCCESS ICON
+=========================================================*/
+
+.success-icon{
+
+    width:90px;
+
+    height:90px;
+
+    margin:0 auto 25px;
+
+    border-radius:50%;
+
+    background:#16a34a;
+
+    color:#ffffff;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:2.5rem;
+
+    font-weight:bold;
+
+}
+
+.modal-content h2{
+
+    font-size:2rem;
+
+    margin-bottom:20px;
+
+    color:#0f172a;
+
+}
+
+.modal-content p{
+
+    color:#475569;
+
+    line-height:1.8;
+
+    margin-bottom:35px;
+
+}
+
+.modal-content .btn{
+
+    width:100%;
+
+}
+
+/*=========================================================
+  FOOTER
+=========================================================*/
+
+.form-footer{
+
+    background:#f8fafc;
+
+    border-top:1px solid #e2e8f0;
+
+    text-align:center;
+
+    padding:35px 20px;
+
+}
+
+.form-footer p{
+
+    color:#64748b;
+
+    margin:4px 0;
+
+}
+
+/*=========================================================
+  RESPONSIVE
+=========================================================*/
+
+@media (max-width:992px){
+
+    #registrationForm{
+
+        padding:50px;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    #registrationForm{
+
+        padding:35px 25px;
+
+    }
+
+    .form-header{
+
+        padding:50px 25px;
+
+    }
+
+    .form-header h1{
+
+        font-size:2rem;
+
+    }
+
+    .grid-2,
+    .grid-3{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .radio-group{
+
+        flex-direction:column;
+
+    }
+
+    .checkbox-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .button-group{
+
+        flex-direction:column;
+
+    }
+
+    .button-group .btn{
+
+        width:100%;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .club-logo{
+
+        width:80px;
+        height:80px;
+
+    }
+
+    .form-section h2{
+
+        font-size:1.5rem;
+
+    }
+
+    .modal-content{
+
+        padding:30px 20px;
+
+    }
+
+    .success-icon{
+
+        width:70px;
+        height:70px;
+        font-size:2rem;
+
+    }
+
+    .modal-content h2{
+
+        font-size:1.6rem;
+
+    }
+
+}
+
+/*=========================================================
+  OPTIONAL SCROLLBAR
+=========================================================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f1f5f9;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#94a3b8;
+
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#64748b;
+
+}
