@@ -876,6 +876,10 @@ async function createSubmissionData() {
         params.set("paymentProofData", await fileToBase64(proof));
     }
 
+    // Keep critical fields explicit even if browser FormData behavior varies.
+    params.set("email", email.value.trim());
+    params.set("firstName", firstName.value.trim());
+    params.set("studentId", studentId.value.trim());
     params.set("submittedFrom", window.location.href);
     return params;
 }

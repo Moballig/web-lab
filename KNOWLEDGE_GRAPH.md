@@ -45,6 +45,8 @@ graph TD
     Sheets --> Receiver[google-apps-script.gs]
     Receiver --> Responses[Registrations sheet]
     Receiver --> Uploads[Payment proofs in Google Drive]
+    Receiver --> MemberId[Sequential member ID]
+    Receiver --> Email[Confirmation email]
 ```
 
 ## Runtime relationships
@@ -55,6 +57,7 @@ graph TD
 - The logo is reused in the sticky site header and registration form header.
 - The registration form posts URL-encoded data to a configured Google Apps Script web app.
 - Google Apps Script appends responses to the `Registrations` sheet and stores payment proofs in Google Drive.
+- Google Apps Script assigns an annual sequential member ID and emails it to the applicant.
 
 ## Constraints
 
