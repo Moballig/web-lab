@@ -1,4 +1,68 @@
 // =========================================================
+// HERO SLIDER
+// =========================================================
+
+const hero = document.querySelector(".hero");
+const heroSlides = [...document.querySelectorAll(".hero-slide")];
+const sliderDots = [...document.querySelectorAll(".slider-dot")];
+const previousSlideButton = document.querySelector(".slider-prev");
+const nextSlideButton = document.querySelector(".slider-next");
+let currentSlide = 0;
+let sliderTimer;
+
+function showSlide(index) {
+    currentSlide = (index + heroSlides.length) % heroSlides.length;
+
+    heroSlides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("active", slideIndex === currentSlide);
+    });
+
+    sliderDots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === currentSlide;
+        dot.classList.toggle("active", isActive);
+        dot.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+}
+
+function startSlider() {
+    window.clearInterval(sliderTimer);
+    sliderTimer = window.setInterval(() => showSlide(currentSlide + 1), 5000);
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlide + direction);
+    startSlider();
+}
+
+if (heroSlides.length) {
+    previousSlideButton.addEventListener("click", () => changeSlide(-1));
+    nextSlideButton.addEventListener("click", () => changeSlide(1));
+
+    sliderDots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            showSlide(index);
+            startSlider();
+        });
+    });
+
+    hero.addEventListener("mouseenter", () => window.clearInterval(sliderTimer));
+    hero.addEventListener("mouseleave", startSlider);
+    hero.addEventListener("focusin", () => window.clearInterval(sliderTimer));
+    hero.addEventListener("focusout", startSlider);
+    hero.addEventListener("keydown", (event) => {
+        if (event.key === "ArrowLeft") changeSlide(-1);
+        if (event.key === "ArrowRight") changeSlide(1);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) window.clearInterval(sliderTimer);
+        else startSlider();
+    });
+
+    startSlider();
+}
+
+// =========================================================
 // SOFTWARE ENGINEERING CLUB REGISTRATION
 // Part 1 - DOM Elements & Validation Functions
 // =========================================================

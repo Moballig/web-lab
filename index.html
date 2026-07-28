@@ -6,12 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Software Engineering Club Registration</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
-
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -20,7 +14,27 @@
 <!-- HERO SECTION -->
 <!-- ===================================================== -->
 
-<section class="hero">
+<header class="site-header">
+    <a class="brand" href="#home" aria-label="Software Engineering Club home">
+        <img src="asset/img_logo_40x82.png" alt="" width="82" height="40">
+        <span>Software Engineering Club</span>
+    </a>
+    <a class="header-cta" href="#registrationForm">Join the club</a>
+</header>
+
+<section class="hero" id="home" aria-label="Club highlights">
+    <div class="hero-slides" aria-live="off">
+        <div class="hero-slide active">
+            <img src="asset/SEC cover photo 3.png" alt="Software Engineering Club event banner">
+        </div>
+        <div class="hero-slide">
+            <img src="asset/algorithm-spring-25.jpg" alt="Students participating in the Algorithm Spring contest">
+        </div>
+        <div class="hero-slide">
+            <img src="asset/IMG_9153.JPG" alt="Software Engineering Club students gathered at an event">
+        </div>
+    </div>
+    <div class="hero-shade"></div>
 
     <div class="hero-content">
 
@@ -50,6 +64,15 @@
 
         </div>
 
+    </div>
+
+    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">&#8594;</button>
+
+    <div class="slider-dots" role="group" aria-label="Choose a slide">
+        <button class="slider-dot active" type="button" aria-label="Show slide 1" aria-current="true"></button>
+        <button class="slider-dot" type="button" aria-label="Show slide 2"></button>
+        <button class="slider-dot" type="button" aria-label="Show slide 3"></button>
     </div>
 
 </section>
@@ -315,7 +338,7 @@
 
             <header class="form-header">
 
-                <img src="images/logo.png" alt="Software Engineering Club Logo" class="club-logo">
+                <img src="asset/img_logo_40x82.png" alt="Software Engineering Club Logo" class="club-logo">
 
                 <h1>Software Engineering Club</h1>
 
