@@ -80,6 +80,10 @@ const loadingOverlay = document.getElementById("loadingOverlay");
 const successModal = document.getElementById("successModal");
 
 const closeModal = document.getElementById("closeModal");
+const submissionError = document.getElementById("submissionError");
+const googleSheetsUrl = document
+    .querySelector('meta[name="google-sheets-web-app-url"]')
+    ?.content.trim();
 
 // -------------------------------
 // Inputs
@@ -239,13 +243,13 @@ function validateStudentID() {
 
     const value = studentId.value.trim();
 
-    const regex = /^[0-9-]{8,16}$/;
+    const regex = /^\d{3}-\d{2}-\d{3}$/;
 
     if (!regex.test(value)) {
 
         showError(
             studentId,
-            "Student ID must contain 8-12 digits."
+            "Use the format 242-35-287."
         );
 
         return false;
@@ -460,6 +464,8 @@ function validateRadioGroup(radios, message) {
 
 function validateCheckboxGroup(boxes, message) {
 
+    if (!boxes.length) return true;
+
     const checked =
         [...boxes].some(box => box.checked);
 
@@ -644,6 +650,18 @@ function validateName(input) {
 
 }
 
+function validateSection() {
+    const value = section.value.trim();
+
+    if (!/^[a-z0-9-]{1,4}$/i.test(value)) {
+        showError(section, "Enter a valid section, such as A or PC-A.");
+        return false;
+    }
+
+    showSuccess(section);
+    return true;
+}
+
 // ---------------------------------------------------------
 // Entire Form Validation
 // ---------------------------------------------------------
@@ -668,7 +686,7 @@ function validateForm() {
 
     valid &= validateName(batch);
 
-    valid &= validatesection();
+    valid &= validateSection();
 
     valid &= validateTextarea(motivation);
 
@@ -680,7 +698,7 @@ function validateForm() {
 
     valid &= validatePaymentProof();
 
-    valid &= validateSelect(meetingTime);
+    if (meetingTime) valid &= validateSelect(meetingTime);
 
     valid &= validateURL(github);
 
@@ -706,10 +724,12 @@ function validateForm() {
         "Select at least one area of interest."
     );
 
-    valid &= validateCheckboxGroup(
-        days,
-        "Select at least one available day."
-    );
+    if (days.length) {
+        valid &= validateCheckboxGroup(
+            days,
+            "Select at least one available day."
+        );
+    }
 
     valid &= validateAgreement();
 
@@ -745,7 +765,7 @@ const textInputs = [
 
 ];
 
-textInputs.forEach(input => {
+textInputs.filter(Boolean).forEach(input => {
 
     input.addEventListener("input", validateForm);
 
@@ -823,10 +843,44 @@ function scrollToFirstError() {
 }
 
 // ---------------------------------------------------------
-// Form Submit
+// Google Sheets Submission
 // ---------------------------------------------------------
 
-form.addEventListener("submit", function (e) {
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(String(reader.result).split(",")[1]);
+        reader.onerror = () => reject(new Error("Could not read the payment proof."));
+        reader.readAsDataURL(file);
+    });
+}
+
+async function createSubmissionData() {
+    const formData = new FormData(form);
+    const params = new URLSearchParams();
+
+    for (const [name, value] of formData.entries()) {
+        if (value instanceof File) continue;
+
+        if (params.has(name)) {
+            params.set(name, `${params.get(name)}, ${value}`);
+        } else {
+            params.set(name, value);
+        }
+    }
+
+    const proof = paymentProof.files[0];
+    if (proof) {
+        params.set("paymentProofName", proof.name);
+        params.set("paymentProofType", proof.type || "application/octet-stream");
+        params.set("paymentProofData", await fileToBase64(proof));
+    }
+
+    params.set("submittedFrom", window.location.href);
+    return params;
+}
+
+form.addEventListener("submit", async function (e) {
 
     e.preventDefault();
 
@@ -838,18 +892,37 @@ form.addEventListener("submit", function (e) {
 
     }
 
+    if (!googleSheetsUrl) {
+        submissionError.textContent =
+            "Google Sheets is not configured yet. Add your deployed Apps Script URL to index.html.";
+        return;
+    }
+
     registerBtn.disabled = true;
+    submissionError.textContent = "";
 
     loadingOverlay.classList.add("active");
 
-    // Simulate API request
-    setTimeout(() => {
+    try {
+        const body = await createSubmissionData();
+
+        await fetch(googleSheetsUrl, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+            body
+        });
 
         loadingOverlay.classList.remove("active");
 
         successModal.classList.add("active");
-
-    }, 2000);
+    } catch (error) {
+        loadingOverlay.classList.remove("active");
+        registerBtn.disabled = false;
+        submissionError.textContent =
+            "Registration could not be submitted. Check your connection and try again.";
+        console.error("Google Sheets submission failed:", error);
+    }
 
 });
 
@@ -947,8 +1020,7 @@ window.addEventListener("click", (e) => {
 // ---------------------------------------------------------
 
 studentId.addEventListener("input", () => {
-
-    studentId.value = studentId.value.replace(/\D/g, "");
+    studentId.value = studentId.value.replace(/[^0-9-]/g, "");
 
 });
 

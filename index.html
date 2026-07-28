@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Paste the deployed Google Apps Script web-app URL into content below. -->
+    <meta name="google-sheets-web-app-url" content="https://script.google.com/macros/s/AKfycbwxM4x4FHH5U5X7xm8cyH_BEvLNpJhZ5weZa9Sgi7rpTqGIv0s_2xirZa1Zpl2kvn1G/exec">
     <title>Software Engineering Club Registration</title>
 
     <link rel="stylesheet" href="style.css">
@@ -396,7 +398,13 @@
                                 Student ID *
                             </label>
 
-                            <input type="text" id="studentId" name="studentId">
+                            <input type="text"
+                                   id="studentId"
+                                   name="studentId"
+                                   placeholder="242-35-287"
+                                   inputmode="text"
+                                   maxlength="10"
+                                   autocomplete="off">
 
                             <small class="error"></small>
 
@@ -646,25 +654,25 @@
 
                         <div class="checkbox-grid">
 
-                            <label><input type="checkbox" name="interest">Web Development</label>
+                            <label><input type="checkbox" name="interest" value="Web Development">Web Development</label>
 
-                            <label><input type="checkbox" name="interest">Backend Development</label>
+                            <label><input type="checkbox" name="interest" value="Backend Development">Backend Development</label>
 
-                            <label><input type="checkbox" name="interest">Frontend Development</label>
+                            <label><input type="checkbox" name="interest" value="Frontend Development">Frontend Development</label>
 
-                            <label><input type="checkbox" name="interest">Artificial Intelligence</label>
+                            <label><input type="checkbox" name="interest" value="Artificial Intelligence">Artificial Intelligence</label>
 
-                            <label><input type="checkbox" name="interest">Machine Learning</label>
+                            <label><input type="checkbox" name="interest" value="Machine Learning">Machine Learning</label>
 
-                            <label><input type="checkbox" name="interest">Cyber Security</label>
+                            <label><input type="checkbox" name="interest" value="Cyber Security">Cyber Security</label>
 
-                            <label><input type="checkbox" name="interest">Cloud Computing</label>
+                            <label><input type="checkbox" name="interest" value="Cloud Computing">Cloud Computing</label>
 
-                            <label><input type="checkbox" name="interest">Robotics</label>
+                            <label><input type="checkbox" name="interest" value="Robotics">Robotics</label>
 
-                            <label><input type="checkbox" name="interest">Competitive Programming</label>
+                            <label><input type="checkbox" name="interest" value="Competitive Programming">Competitive Programming</label>
 
-                            <label><input type="checkbox" name="interest">UI / UX</label>
+                            <label><input type="checkbox" name="interest" value="UI / UX">UI / UX</label>
 
                         </div>
 
@@ -917,6 +925,8 @@
                     </button>
 
                 </div>
+
+                <p class="submission-error" id="submissionError" role="alert" aria-live="polite"></p>
 
             </form>
 

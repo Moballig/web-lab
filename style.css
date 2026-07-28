@@ -213,6 +213,15 @@ body .hero h1{
 
 .slider-dot.active{width:32px;background:#fff;}
 
+.submission-error{
+    min-height:1.7em;
+    margin:14px 20px 0;
+    color:#b91c1c;
+    text-align:center;
+    font-size:.9rem;
+    font-weight:600;
+}
+
 @media(max-width:768px){
     .site-header{padding:16px 20px;}
     .brand span{display:none;}

@@ -12,6 +12,7 @@ graph TD
     Site --> CSS[style.css]
     Site --> JS[script.js]
     Site --> Assets[asset/]
+    Site --> Sheets[Google Sheets integration]
 
     HTML --> Header[Sticky brand header]
     HTML --> Hero[Hero slider]
@@ -41,6 +42,9 @@ graph TD
     SliderLogic --> Hero
     Validation --> Form
     Feedback --> Modal
+    Sheets --> Receiver[google-apps-script.gs]
+    Receiver --> Responses[Registrations sheet]
+    Receiver --> Uploads[Payment proofs in Google Drive]
 ```
 
 ## Runtime relationships
@@ -49,7 +53,8 @@ graph TD
 - The hero uses all three large images from `asset/`; JavaScript changes the active slide every five seconds.
 - Slider arrows, dots, left/right keyboard keys, hover, and focus provide manual control.
 - The logo is reused in the sticky site header and registration form header.
-- The registration form remains client-side and does not send data to a server.
+- The registration form posts URL-encoded data to a configured Google Apps Script web app.
+- Google Apps Script appends responses to the `Registrations` sheet and stores payment proofs in Google Drive.
 
 ## Constraints
 
