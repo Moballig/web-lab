@@ -250,11 +250,39 @@ body .hero h1{
 }
 
 @media(max-width:768px){
-    .site-header{padding:16px 20px;}
+    .site-header{
+        flex-wrap:wrap;
+        align-items:center;
+        justify-content:space-between;
+        padding:16px 20px;
+        row-gap:10px;
+    }
+
     .brand span{display:none;}
-    .hero{min-height:700px;padding:120px 24px 100px;}
-    body .hero .hero-content{text-align:center;}
-    body .hero .hero-buttons{justify-content:center;}
+
+    .header-cta{
+        padding:8px 14px;
+        font-size:.78rem;
+    }
+
+    .hero{
+        min-height:690px;
+        padding:110px 20px 100px;
+    }
+
+    body .hero .hero-content{
+        max-width:100%;
+        margin:0 auto;
+        text-align:center;
+    }
+
+    body .hero .hero-buttons{
+        width:100%;
+        justify-content:center;
+        align-items:center;
+        gap:12px;
+    }
+
     .hero-shade{background:linear-gradient(rgba(2,6,23,.67),rgba(2,6,23,.78));}
     .slider-arrow{top:auto;bottom:27px;width:42px;height:42px;}
     .slider-prev{left:20px;}
@@ -871,6 +899,15 @@ section{
 
     }
 
+    .site-header{
+        padding:14px 16px;
+    }
+
+    .hero{
+        min-height:640px;
+        padding:100px 16px 88px;
+    }
+
     .hero h1{
 
         font-size:2rem;
@@ -882,6 +919,10 @@ section{
         font-size:.8rem;
         padding:8px 18px;
 
+    }
+
+    .hero .hero-buttons{
+        gap:10px;
     }
 
     .registration-header h2{

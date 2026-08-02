@@ -5,8 +5,8 @@
 const hero = document.querySelector(".hero");
 const heroSlides = [...document.querySelectorAll(".hero-slide")];
 const sliderDots = [...document.querySelectorAll(".slider-dot")];
-const previousSlideButton = document.querySelector(".slider-prev");
-const nextSlideButton = document.querySelector(".slider-next");
+const previousSlideButtons = [...document.querySelectorAll(".slider-prev")];
+const nextSlideButtons = [...document.querySelectorAll(".slider-next")];
 let currentSlide = 0;
 let sliderTimer;
 
@@ -35,8 +35,13 @@ function changeSlide(direction) {
 }
 
 if (heroSlides.length) {
-    previousSlideButton.addEventListener("click", () => changeSlide(-1));
-    nextSlideButton.addEventListener("click", () => changeSlide(1));
+    previousSlideButtons.forEach((button) => {
+        button.addEventListener("click", () => changeSlide(-1));
+    });
+
+    nextSlideButtons.forEach((button) => {
+        button.addEventListener("click", () => changeSlide(1));
+    });
 
     sliderDots.forEach((dot, index) => {
         dot.addEventListener("click", () => {
