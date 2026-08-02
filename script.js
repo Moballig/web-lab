@@ -846,16 +846,7 @@ function scrollToFirstError() {
 // Google Sheets Submission
 // ---------------------------------------------------------
 
-function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(String(reader.result).split(",")[1]);
-        reader.onerror = () => reject(new Error("Could not read the payment proof."));
-        reader.readAsDataURL(file);
-    });
-}
-
-async function createSubmissionData() {
+function createSubmissionData() {
     const formData = new FormData(form);
     const params = new URLSearchParams();
 
@@ -867,13 +858,6 @@ async function createSubmissionData() {
         } else {
             params.set(name, value);
         }
-    }
-
-    const proof = paymentProof.files[0];
-    if (proof) {
-        params.set("paymentProofName", proof.name);
-        params.set("paymentProofType", proof.type || "application/octet-stream");
-        params.set("paymentProofData", await fileToBase64(proof));
     }
 
     // Keep critical fields explicit even if browser FormData behavior varies.
@@ -908,23 +892,47 @@ form.addEventListener("submit", async function (e) {
     loadingOverlay.classList.add("active");
 
     try {
-        const body = await createSubmissionData();
+        const body = createSubmissionData();
 
-        await fetch(googleSheetsUrl, {
+        const response = await fetch(googleSheetsUrl, {
             method: "POST",
-            mode: "no-cors",
+            mode: "cors",
             headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
             body
         });
 
-        loadingOverlay.classList.remove("active");
+        const responseText = await response.text();
+        let responseData;
 
+        try {
+            responseData = JSON.parse(responseText);
+        } catch {
+            responseData = { ok: response.ok };
+        }
+
+        if (!response.ok || responseData.ok !== true) {
+            throw new Error(
+                responseData?.error ||
+                `Apps Script returned ${response.status} ${response.statusText}`
+            );
+        }
+
+        loadingOverlay.classList.remove("active");
+        registerBtn.disabled = false;
         successModal.classList.add("active");
     } catch (error) {
         loadingOverlay.classList.remove("active");
         registerBtn.disabled = false;
+
+        const message = error instanceof Error && error.message
+            ? error.message
+            : "Registration could not be submitted. Check your connection and try again.";
+
         submissionError.textContent =
-            "Registration could not be submitted. Check your connection and try again.";
+            message === "Failed to fetch"
+                ? "The Google Apps Script endpoint rejected the request. Recheck the deployed web-app URL and publish it with Anyone access."
+                : message;
+
         console.error("Google Sheets submission failed:", error);
     }
 

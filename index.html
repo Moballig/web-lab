@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Paste the deployed Google Apps Script web-app URL into content below. -->
-    <meta name="google-sheets-web-app-url" content="https://script.google.com/macros/s/AKfycbwxM4x4FHH5U5X7xm8cyH_BEvLNpJhZ5weZa9Sgi7rpTqGIv0s_2xirZa1Zpl2kvn1G/exec">
+    <meta name="google-sheets-web-app-url" content="https://script.google.com/macros/s/AKfycbzPseakef55KVxLC1-A1C7bisX1w66Qmu_6DTdU4Yr5i_54sB-2M5bhkHJC6KRLd9Fk/exec">
     <title>Software Engineering Club Registration</title>
 
     <link rel="stylesheet" href="style.css">
@@ -53,14 +53,30 @@
             contests, and become part of one of the most active student
             communities at Daffodil International University.
         </p>
+    </div>
+
+    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">&#8594;</button>
 
         <div class="hero-buttons">
 
             <a href="#registrationForm" class="btn btn-primary">
+    </div>
+
+    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">&#8594;</button>
                 Become a Member
             </a>
+    </div>
+
+    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">&#8594;</button>
 
             <a href="#activities" class="btn btn-outline">
+    </div>
+
+    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">&#8592;</button>
+    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">&#8594;</button>
                 Explore Activities
             </a>
 
@@ -97,7 +113,6 @@
     </div>
 
     <div class="feature-grid">
-
         <div class="feature-card">
 
             <div class="feature-icon">💻</div>
@@ -449,9 +464,11 @@
                                 Date of Birth *
                             </label>
 
-                            <input type="date"
+                            <input type="text"
                                    id="dob"
-                                   name="dob">
+                                   name="dob"
+                                   placeholder="YYYY-MM-DD"
+                                   inputmode="numeric">
 
                             <small class="error"></small>
 

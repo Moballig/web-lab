@@ -1,7 +1,6 @@
 /** Google Sheets receiver for the Software Engineering Club registration form. */
 
 const SHEET_NAME = "Registrations";
-const UPLOAD_FOLDER_PROPERTY = "PAYMENT_PROOF_FOLDER_ID";
 const COLUMNS = [
   "Timestamp", "First Name", "Last Name", "Student ID", "Email", "Phone",
   "Date of Birth", "Gender", "Semester", "Batch", "Section", "Experience",
@@ -24,7 +23,8 @@ function doPost(e) {
     sheet.setFrozenRows(1);
 
     const recipientEmail = getParameter_(data, "email");
-    const proofUrl = savePaymentProof_(data);
+    // Payment proof is validated in the form but intentionally not uploaded or stored.
+    const proofUrl = "";
     const memberId = nextMemberId_(sheet);
     const clean = safeCell_;
 
@@ -76,35 +76,45 @@ function sendConfirmationEmail_(data, memberId, recipientEmail) {
 
   const firstName = escapeHtml_(data.firstName || "Member");
   const safeMemberId = escapeHtml_(memberId);
-  const subject = `SEC registration confirmed — ${memberId}`;
+  const subject = `Welcome to SEC — ${memberId}`;
   const plainText = [
     `Hello ${data.firstName || "Member"},`,
     "",
-    "Your Software Engineering Club registration has been received.",
+    "Welcome to the Software Engineering Club!",
+    "We’re excited to have you join our growing community of learners, builders, and problem-solvers.",
+    "Your registration has been received successfully.",
     `Your membership ID is: ${memberId}`,
     "",
-    "Please keep this ID for future club communication.",
+    "Please keep this ID safe for future club communication and event updates.",
     "",
+    "We look forward to seeing you grow with us.",
+    "",
+    "Warm regards,",
     "Software Engineering Club",
     "Daffodil International University"
   ].join("\n");
 
   const html = `
     <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;color:#0f172a">
-      <div style="background:#2563eb;color:#fff;padding:24px;border-radius:12px 12px 0 0">
-        <h2 style="margin:0">Registration confirmed</h2>
+      <div style="background:linear-gradient(135deg,#2563eb,#1d4ed8);color:#fff;padding:24px;border-radius:12px 12px 0 0">
+        <h2 style="margin:0">Welcome to the Software Engineering Club!</h2>
       </div>
-      <div style="padding:28px;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px">
+      <div style="padding:28px;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 12px 12px;background:#ffffff">
         <p>Hello ${firstName},</p>
-        <p>Your Software Engineering Club registration has been received.</p>
+        <p>We’re thrilled to welcome you to the Software Engineering Club — a community built for learning, collaboration, and growth.</p>
+        <p>Your registration has been received successfully, and we’re excited to support you on your journey.</p>
         <p style="margin:24px 0;padding:18px;background:#eff6ff;border-radius:8px;text-align:center">
           Your membership ID<br>
           <strong style="font-size:24px;color:#1d4ed8">${safeMemberId}</strong>
         </p>
-        <p>Please keep this ID for future club communication.</p>
-        <p>Software Engineering Club<br>Daffodil International University</p>
+        <p>Please keep this ID safe for future club communication, event updates, and opportunities.</p>
+        <p>We can’t wait to see the amazing things you’ll build with us.</p>
+        <p style="margin-top:24px">Warm regards,<br>Software Engineering Club<br>Daffodil International University</p>
       </div>
     </div>`;
+
+  Logger.log(JSON.stringify(data));
+  Logger.log(`Sending confirmation email to: ${recipient}`);
 
   MailApp.sendEmail({
     to: recipient,
@@ -135,26 +145,6 @@ function escapeHtml_(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
-}
-
-function savePaymentProof_(data) {
-  if (!data.paymentProofData) return "";
-
-  const properties = PropertiesService.getScriptProperties();
-  const folderId = properties.getProperty(UPLOAD_FOLDER_PROPERTY);
-  let folder;
-
-  if (folderId) {
-    folder = DriveApp.getFolderById(folderId);
-  } else {
-    folder = DriveApp.createFolder("SEC Registration Payment Proofs");
-    properties.setProperty(UPLOAD_FOLDER_PROPERTY, folder.getId());
-  }
-
-  const bytes = Utilities.base64Decode(data.paymentProofData);
-  const filename = `${Date.now()}-${data.studentId || "student"}-${data.paymentProofName || "proof"}`;
-  const blob = Utilities.newBlob(bytes, data.paymentProofType || "application/octet-stream", filename);
-  return folder.createFile(blob).getUrl();
 }
 
 function safeCell_(value) {
