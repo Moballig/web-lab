@@ -8,12 +8,13 @@
     <meta name="google-sheets-web-app-url" content="https://script.google.com/macros/s/AKfycbzPseakef55KVxLC1-A1C7bisX1w66Qmu_6DTdU4Yr5i_54sB-2M5bhkHJC6KRLd9Fk/exec">
     <title>Software Engineering Club Registration</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- ===================================================== -->
-<!-- HERO SECTION -->
+<!-- ===================================================== -->
+<!--                 HERO SECTION                          -->
 <!-- ===================================================== -->
 
 <header class="site-header">
@@ -63,8 +64,12 @@
         </div>
     </div>
 
-    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">&#8592;</button>
-    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">&#8594;</button>
+    <button class="slider-arrow slider-prev" type="button" aria-label="Previous slide">
+        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+    </button>
+    <button class="slider-arrow slider-next" type="button" aria-label="Next slide">
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+    </button>
 
     <div class="slider-dots" role="group" aria-label="Choose a slide">
         <button class="slider-dot active" type="button" aria-label="Show slide 1" aria-current="true"></button>
@@ -93,7 +98,9 @@
     <div class="feature-grid">
         <div class="feature-card">
 
-            <div class="feature-icon">💻</div>
+            <div class="feature-icon" aria-hidden="true">
+                <i class="fa-solid fa-graduation-cap" aria-label="Learn icon"></i>
+            </div>
 
             <h3>Learn</h3>
 
@@ -106,7 +113,9 @@
 
         <div class="feature-card">
 
-            <div class="feature-icon">🚀</div>
+            <div class="feature-icon" aria-hidden="true">
+                <i class="fa-solid fa-code" aria-label="Build icon"></i>
+            </div>
 
             <h3>Build</h3>
 
@@ -119,7 +128,9 @@
 
         <div class="feature-card">
 
-            <div class="feature-icon">🏆</div>
+            <div class="feature-icon" aria-hidden="true">
+                <i class="fa-solid fa-trophy" aria-label="Compete icon"></i>
+            </div>
 
             <h3>Compete</h3>
 
@@ -132,7 +143,9 @@
 
         <div class="feature-card">
 
-            <div class="feature-icon">🤝</div>
+            <div class="feature-icon" aria-hidden="true">
+                <i class="fa-solid fa-users" aria-label="Connect icon"></i>
+            </div>
 
             <h3>Connect</h3>
 
@@ -168,7 +181,7 @@
 
         <div class="activity-card">
 
-            <h3>🏆 Competitive Programming</h3>
+            <h3>Competitive Programming</h3>
 
             <ul>
 
@@ -186,7 +199,7 @@
 
         <div class="activity-card">
 
-            <h3>📚 Learning Programs</h3>
+            <h3>Learning Programs</h3>
 
             <ul>
 
@@ -206,7 +219,7 @@
 
         <div class="activity-card">
 
-            <h3>🌸 Community & Leadership</h3>
+            <h3><i class="fa-solid fa-seedling" aria-hidden="true"></i> Community & Leadership</h3>
 
             <ul>
 
@@ -224,7 +237,7 @@
 
         <div class="activity-card">
 
-            <h3>⚽ Beyond Technology</h3>
+            <h3><i class="fa-solid fa-futbol" aria-hidden="true"></i> Beyond Technology</h3>
 
             <ul>
 
@@ -967,10 +980,8 @@
 
         <div class="modal-content">
 
-            <div class="success-icon">
-
-                ✓
-
+            <div class="success-icon" aria-hidden="true">
+                <i class="fa-solid fa-check"></i>
             </div>
 
             <h2>

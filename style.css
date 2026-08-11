@@ -210,6 +210,13 @@ body .hero h1{
     cursor:pointer;
     backdrop-filter:blur(8px);
     transition:background .25s ease,transform .25s ease;
+    display:grid;
+    place-items:center;
+}
+
+.slider-arrow i{
+    font-size:1rem;
+    line-height:1;
 }
 
 .slider-arrow:hover,
@@ -536,9 +543,17 @@ section{
 
     align-items:center;
 
-    font-size:2rem;
-
     margin-bottom:25px;
+
+    color:var(--primary);
+
+}
+
+.feature-icon i{
+
+    font-size:1.7rem;
+
+    line-height:1;
 
 }
 
@@ -547,6 +562,18 @@ section{
     margin-bottom:15px;
 
     font-size:1.35rem;
+
+}
+
+.activity-card h3 i{
+
+    margin-right:8px;
+
+    color:var(--primary);
+
+    font-size:1rem;
+
+    vertical-align:middle;
 
 }
 
@@ -1812,6 +1839,14 @@ label{
     font-size:2.5rem;
 
     font-weight:bold;
+
+}
+
+.success-icon i{
+
+    font-size:2.2rem;
+
+    line-height:1;
 
 }
 
