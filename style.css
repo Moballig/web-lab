@@ -989,54 +989,6 @@ section{
 
 }
 
-.background{
-    position:relative;
-    width:min(1200px,92%);
-    margin:0 auto 30px;
-    height:110px;
-    overflow:hidden;
-    pointer-events:none;
-}
-
-.background .shape{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(4px);
-    opacity:.9;
-}
-
-.shape1{
-    width:180px;
-    height:180px;
-    left:40px;
-    top:15px;
-    background:rgba(96,165,250,.35);
-}
-
-.shape2{
-    width:220px;
-    height:220px;
-    right:90px;
-    top:-25px;
-    background:rgba(125,211,252,.28);
-}
-
-.shape3{
-    width:150px;
-    height:150px;
-    left:32%;
-    top:20px;
-    background:rgba(34,211,238,.2);
-}
-
-.shape4{
-    width:240px;
-    height:240px;
-    right:28%;
-    bottom:-120px;
-    background:rgba(59,130,246,.18);
-}
-
 .registration-card{
 
     background:#ffffff;
