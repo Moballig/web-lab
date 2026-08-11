@@ -1,5 +1,8 @@
 // =========================================================
 // HERO SLIDER
+// This section controls the rotating hero banner and its
+// navigation dots/arrows. It keeps the homepage visually active
+// and allows keyboard and mouse interaction.
 // =========================================================
 
 const hero = document.querySelector(".hero");
@@ -10,7 +13,8 @@ const nextSlideButtons = [...document.querySelectorAll(".slider-next")];
 let currentSlide = 0;
 let sliderTimer;
 
-function showSlide(index) {
+// Show the selected slide and update the active dot state.
+function showSlide(index) { // Defined at line 17; called from lines 38, 55, 67-68
     currentSlide = (index + heroSlides.length) % heroSlides.length;
 
     heroSlides.forEach((slide, slideIndex) => {
@@ -24,17 +28,20 @@ function showSlide(index) {
     });
 }
 
-function startSlider() {
+// Restart the automatic slide timer so the banner keeps rotating.
+function startSlider() { // Defined at line 32; called from lines 40, 63-65, 72-74
     window.clearInterval(sliderTimer);
     sliderTimer = window.setInterval(() => showSlide(currentSlide + 1), 5000);
 }
 
-function changeSlide(direction) {
-    showSlide(currentSlide + direction);
-    startSlider();
+// Move to the next or previous slide and restart the timer.
+function changeSlide(direction) { // Defined at line 38; called from lines 46, 50, 66-68
+    showSlide(currentSlide + direction); // showSlide() defined at line 17; called here
+    startSlider(); // startSlider() defined at line 32; called here
 }
 
 if (heroSlides.length) {
+    // Arrow buttons move through the slide list.
     previousSlideButtons.forEach((button) => {
         button.addEventListener("click", () => changeSlide(-1));
     });
@@ -43,13 +50,15 @@ if (heroSlides.length) {
         button.addEventListener("click", () => changeSlide(1));
     });
 
+    // Dot navigation lets users jump directly to a slide.
     sliderDots.forEach((dot, index) => {
         dot.addEventListener("click", () => {
-            showSlide(index);
-            startSlider();
+            showSlide(index); // showSlide() defined at line 17; called here from dot click
+            startSlider(); // startSlider() defined at line 32; called here after manual slide change
         });
     });
 
+    // Pause the slider while the user hovers or focuses on the hero area.
     hero.addEventListener("mouseenter", () => window.clearInterval(sliderTimer));
     hero.addEventListener("mouseleave", startSlider);
     hero.addEventListener("focusin", () => window.clearInterval(sliderTimer));
@@ -59,6 +68,7 @@ if (heroSlides.length) {
         if (event.key === "ArrowRight") changeSlide(1);
     });
 
+    // Restart the slider when the page becomes visible again.
     document.addEventListener("visibilitychange", () => {
         if (document.hidden) window.clearInterval(sliderTimer);
         else startSlider();
@@ -70,10 +80,14 @@ if (heroSlides.length) {
 // =========================================================
 // SOFTWARE ENGINEERING CLUB REGISTRATION
 // Part 1 - DOM Elements & Validation Functions
+// This section holds the form references and reusable validation
+// helpers used throughout the registration flow.
 // =========================================================
 
 // -------------------------------
 // Form Elements
+// These references are used to read form data, trigger validation,
+// show loading states, and display success/error feedback.
 // -------------------------------
 
 const form = document.getElementById("registrationForm");
@@ -151,6 +165,8 @@ const days =
 
 // =========================================================
 // Character Counter
+// These counters update the remaining text count for the two
+// long-form textareas so users stay within the 300-character limit.
 // =========================================================
 
 function updateCounter(textarea, counter) {
@@ -179,6 +195,8 @@ contribution.addEventListener("input", () => {
 
 // =========================================================
 // Error Handling
+// The form visually marks invalid fields and places a message next
+// to them so the user knows exactly what to fix.
 // =========================================================
 
 function showError(input, message) {
@@ -217,6 +235,8 @@ function showSuccess(input) {
 
 // =========================================================
 // Text Validation
+// These functions check the required text fields and ensure they
+// meet the expected minimum length or format before submission.
 // =========================================================
 
 function validateName(input) {
@@ -242,9 +262,11 @@ function validateName(input) {
 
 // =========================================================
 // Student ID
+// Student IDs follow the university's format, so we validate them
+// against a strict pattern before allowing the form to submit.
 // =========================================================
 
-function validateStudentID() {
+function validateStudentID() { // Defined at line 269; called from validateForm() at line 726
 
     const value = studentId.value.trim();
 
@@ -269,9 +291,11 @@ function validateStudentID() {
 
 // =========================================================
 // Email
+// Daffodil students are expected to use their university email,
+// so this validation restricts the address format.
 // =========================================================
 
-function validateEmail() {
+function validateEmail() { // Defined at line 298; called from validateForm() at line 728
 
     const value = email.value.trim();
 
@@ -296,9 +320,11 @@ function validateEmail() {
 
 // =========================================================
 // Phone Number
+// We allow only digits so that the contact number stays consistent
+// and avoids invalid characters in the form data.
 // =========================================================
 
-function validatePhone() {
+function validatePhone() { // Defined at line 327; called from validateForm() at line 730
 
     const value =
         phone.value.replace(/\s+/g, "");
@@ -325,9 +351,11 @@ function validatePhone() {
 
 // =========================================================
 // Age Validation
+// The club requires members to be at least 16 before registration,
+// so this function calculates age from the selected date.
 // =========================================================
 
-function validateDOB() {
+function validateDOB() { // Defined at line 358; called from validateForm() at line 732
 
     if (dob.value === "") {
 
@@ -383,9 +411,10 @@ function validateDOB() {
 
 // =========================================================
 // Dropdown Validation
+// Select fields must be answered to ensure the form is complete.
 // =========================================================
 
-function validateSelect(select) {
+function validateSelect(select) { // Defined at line 417; called from validateForm() at lines 735, 742, 748, 756
 
     if (select.value === "") {
 
@@ -406,9 +435,11 @@ function validateSelect(select) {
 
 // =========================================================
 // Textarea Validation
+// Motivation and contribution fields are required to contain enough
+// detail, so they are checked for a minimum word count/length.
 // =========================================================
 
-function validateTextarea(textarea) {
+function validateTextarea(textarea) { // Defined at line 442; called from validateForm() at lines 746-747
 
     const value =
         textarea.value.trim();
@@ -431,13 +462,16 @@ function validateTextarea(textarea) {
 }
 // =========================================================
 // Part 2 - Group Validation & Form Validation
+// This section validates grouped controls such as radios, checkboxes,
+// and the final form state before enabling the submit button.
 // =========================================================
 
 // ---------------------------------------------------------
 // Radio Button Validation
+// Ensures at least one option in each radio group is selected.
 // ---------------------------------------------------------
 
-function validateRadioGroup(radios, message) {
+function validateRadioGroup(radios, message) { // Defined at line 474; called from validateForm() at lines 760-767
 
     const checked =
         [...radios].some(radio => radio.checked);
@@ -465,9 +499,10 @@ function validateRadioGroup(radios, message) {
 
 // ---------------------------------------------------------
 // Checkbox Validation
+// Checks that the user selected at least one skill or interest.
 // ---------------------------------------------------------
 
-function validateCheckboxGroup(boxes, message) {
+function validateCheckboxGroup(boxes, message) { // Defined at line 505; called from validateForm() at lines 769-782
 
     if (!boxes.length) return true;
 
@@ -497,9 +532,11 @@ function validateCheckboxGroup(boxes, message) {
 
 // ---------------------------------------------------------
 // URL Validation (Optional)
+// Social/profile links are optional, but if provided they must be
+// valid absolute URLs for correct formatting.
 // ---------------------------------------------------------
 
-function validateURL(input) {
+function validateURL(input) { // Defined at line 539; called from validateForm() at lines 753-754
 
     if (input.value.trim() === "")
         return true;
@@ -529,9 +566,11 @@ function validateURL(input) {
 
 // ---------------------------------------------------------
 // Transaction ID
+// Payment references are required for club registration and are
+// checked for a minimum valid length.
 // ---------------------------------------------------------
 
-function validateTransactionID() {
+function validateTransactionID() { // Defined at line 573; called from validateForm() at line 749
 
     const value =
         transactionId.value.trim();
@@ -555,9 +594,11 @@ function validateTransactionID() {
 
 // ---------------------------------------------------------
 // Payment Screenshot
+// The proof of payment must be present and within a safe file type
+// and size limit before the application can be submitted.
 // ---------------------------------------------------------
 
-function validatePaymentProof() {
+function validatePaymentProof() { // Defined at line 601; called from validateForm() at line 750
 
     if (paymentProof.files.length === 0) {
 
@@ -611,9 +652,10 @@ function validatePaymentProof() {
 
 // ---------------------------------------------------------
 // Agreement
+// Members must confirm the declaration before submission.
 // ---------------------------------------------------------
 
-function validateAgreement() {
+function validateAgreement() { // Defined at line 658; called from validateForm() at line 785
 
     const error =
         agreement
@@ -634,7 +676,7 @@ function validateAgreement() {
     return true;
 
 }
-function validateName(input) {
+function validateName(input) { // Defined at line 242; called from validateForm() at lines 719-758
 
     const value = input.value.trim();
 
@@ -655,7 +697,7 @@ function validateName(input) {
 
 }
 
-function validateSection() {
+function validateSection() { // Defined at line 700; called from validateForm() at line 739
     const value = section.value.trim();
 
     if (!/^[a-z0-9-]{1,4}$/i.test(value)) {
@@ -669,74 +711,77 @@ function validateSection() {
 
 // ---------------------------------------------------------
 // Entire Form Validation
+// This is the main validation gate. It runs the full set of checks
+// and enables or disables the registration button depending on the
+// result of all required fields.
 // ---------------------------------------------------------
 
-function validateForm() {
+function validateForm() { // Defined at line 719; called from lines 822-863, 929, 933
 
     let valid = true;
 
-    valid &= validateName(firstName);
+    valid &= validateName(firstName); // Defined in validateName(); called here
 
-    valid &= validateName(lastName);
+    valid &= validateName(lastName); // Defined in validateName(); called here
 
-    valid &= validateStudentID();
+    valid &= validateStudentID(); // Defined in validateStudentID(); called here
 
-    valid &= validateEmail();
+    valid &= validateEmail(); // Defined in validateEmail(); called here
 
-    valid &= validatePhone();
+    valid &= validatePhone(); // Defined in validatePhone(); called here
 
-    valid &= validateDOB();
+    valid &= validateDOB(); // Defined in validateDOB(); called here
 
-    valid &= validateSelect(semester);
+    valid &= validateSelect(semester); // Defined in validateSelect(); called here
 
-    valid &= validateName(batch);
+    valid &= validateName(batch); // Defined in validateName(); called here
 
-    valid &= validateSection();
+    valid &= validateSection(); // Defined in validateSection(); called here
 
-    valid &= validateTextarea(motivation);
+    valid &= validateTextarea(motivation); // Defined in validateTextarea(); called here
 
-    valid &= validateTextarea(contribution);
+    valid &= validateTextarea(contribution); // Defined in validateTextarea(); called here
 
-    valid &= validateSelect(paymentMethod);
+    valid &= validateSelect(paymentMethod); // Defined in validateSelect(); called here
 
-    valid &= validateTransactionID();
+    valid &= validateTransactionID(); // Defined in validateTransactionID(); called here
 
-    valid &= validatePaymentProof();
+    valid &= validatePaymentProof(); // Defined in validatePaymentProof(); called here
 
-    if (meetingTime) valid &= validateSelect(meetingTime);
+    if (meetingTime) valid &= validateSelect(meetingTime); // Defined in validateSelect(); called here
 
-    valid &= validateURL(github);
+    valid &= validateURL(github); // Defined in validateURL(); called here
 
-    valid &= validateURL(linkedin);
+    valid &= validateURL(linkedin); // Defined in validateURL(); called here
 
     valid &= validateRadioGroup(
         genderRadios,
         "Select your gender."
-    );
+    ); // Defined in validateRadioGroup(); called here
 
     valid &= validateRadioGroup(
         experienceRadios,
         "Select your experience level."
-    );
+    ); // Defined in validateRadioGroup(); called here
 
     valid &= validateCheckboxGroup(
         skills,
         "Select at least one skill."
-    );
+    ); // Defined in validateCheckboxGroup(); called here
 
     valid &= validateCheckboxGroup(
         interests,
         "Select at least one area of interest."
-    );
+    ); // Defined in validateCheckboxGroup(); called here
 
     if (days.length) {
         valid &= validateCheckboxGroup(
             days,
             "Select at least one available day."
-        );
+        ); // Defined in validateCheckboxGroup(); called here
     }
 
-    valid &= validateAgreement();
+    valid &= validateAgreement(); // Defined in validateAgreement(); called here
 
     registerBtn.disabled = !valid;
 
@@ -746,6 +791,8 @@ function validateForm() {
 
 // ---------------------------------------------------------
 // Live Validation
+// The page validates users as they type so field errors appear
+// immediately and the submit button reflects current status.
 // ---------------------------------------------------------
 
 const textInputs = [
@@ -772,60 +819,64 @@ const textInputs = [
 
 textInputs.filter(Boolean).forEach(input => {
 
-    input.addEventListener("input", validateForm);
+    input.addEventListener("input", validateForm); // validateForm() defined above; called here on every input event
 
-    input.addEventListener("change", validateForm);
+    input.addEventListener("change", validateForm); // validateForm() defined above; called here on change event
 
 });
 
 genderRadios.forEach(radio =>
     radio.addEventListener(
         "change",
-        validateForm
+        validateForm // validateForm() defined above; called here when gender changes
     )
 );
 
 experienceRadios.forEach(radio =>
     radio.addEventListener(
         "change",
-        validateForm
+        validateForm // validateForm() defined above; called here when experience changes
     )
 );
 
 skills.forEach(box =>
     box.addEventListener(
         "change",
-        validateForm
+        validateForm // validateForm() defined above; called here when skills change
     )
 );
 
 interests.forEach(box =>
     box.addEventListener(
         "change",
-        validateForm
+        validateForm // validateForm() defined above; called here when interests change
     )
 );
 
 days.forEach(box =>
     box.addEventListener(
         "change",
-        validateForm
+        validateForm // validateForm() defined above; called here when day selections change
     )
 );
 
 agreement.addEventListener(
     "change",
-    validateForm
+    validateForm // validateForm() defined above; called here when agreement checkbox changes
 );
 // =========================================================
 // Part 3 - Form Submission, Loading, Modal & Reset
+// This final section submits the completed form, shows a loading
+// state, handles the success modal, and resets the page state.
 // =========================================================
 
 // ---------------------------------------------------------
 // Scroll to First Error
+// When validation fails, this helps move the user directly to the
+// first invalid field so they can fix it without confusion.
 // ---------------------------------------------------------
 
-function scrollToFirstError() {
+function scrollToFirstError() { // Defined at line 879; called from line 933
 
     const firstError = document.querySelector(
 
@@ -849,9 +900,11 @@ function scrollToFirstError() {
 
 // ---------------------------------------------------------
 // Google Sheets Submission
+// The form data is converted into URL-encoded parameters before
+// being sent to the Apps Script endpoint that stores entries.
 // ---------------------------------------------------------
 
-function createSubmissionData() {
+function createSubmissionData() { // Defined at line 907; called from line 947
     const formData = new FormData(form);
     const params = new URLSearchParams();
 
@@ -873,13 +926,13 @@ function createSubmissionData() {
     return params;
 }
 
-form.addEventListener("submit", async function (e) {
+form.addEventListener("submit", async function (e) { // submit listener; calls validateForm() and scrollToFirstError()
 
     e.preventDefault();
 
-    if (!validateForm()) {
+    if (!validateForm()) { // validateForm() defined above; called here before sending
 
-        scrollToFirstError();
+        scrollToFirstError(); // scrollToFirstError() defined above; called here when validation fails
 
         return;
 
@@ -897,7 +950,7 @@ form.addEventListener("submit", async function (e) {
     loadingOverlay.classList.add("active");
 
     try {
-        const body = createSubmissionData();
+        const body = createSubmissionData(); // createSubmissionData() defined above; called here before fetch()
 
         const response = await fetch(googleSheetsUrl, {
             method: "POST",
@@ -945,6 +998,8 @@ form.addEventListener("submit", async function (e) {
 
 // ---------------------------------------------------------
 // Close Success Modal
+// Resetting the form after a successful submission clears all
+// validation styling and returns the page to a clean initial state.
 // ---------------------------------------------------------
 
 closeModal.addEventListener("click", () => {
@@ -984,6 +1039,8 @@ closeModal.addEventListener("click", () => {
 
 // ---------------------------------------------------------
 // Reset Button
+// Clearing the form must also remove all error classes and reset
+// the character counters back to zero.
 // ---------------------------------------------------------
 
 form.addEventListener("reset", () => {
@@ -1020,6 +1077,8 @@ form.addEventListener("reset", () => {
 
 // ---------------------------------------------------------
 // Optional: Close Modal by Clicking Outside
+// Clicking outside the success modal behaves like pressing the
+// close button and closes the confirmation dialog.
 // ---------------------------------------------------------
 
 window.addEventListener("click", (e) => {
@@ -1034,6 +1093,8 @@ window.addEventListener("click", (e) => {
 
 // ---------------------------------------------------------
 // Prevent Spaces in Student ID
+// This keeps the university ID clean and formatted as a numeric ID
+// with hyphens only.
 // ---------------------------------------------------------
 
 studentId.addEventListener("input", () => {
@@ -1043,6 +1104,8 @@ studentId.addEventListener("input", () => {
 
 // ---------------------------------------------------------
 // Prevent Letters in Phone Number
+// Phone numbers are stored as numeric values, so text characters are
+// stripped as the user types.
 // ---------------------------------------------------------
 
 phone.addEventListener("input", () => {
@@ -1053,6 +1116,7 @@ phone.addEventListener("input", () => {
 
 // ---------------------------------------------------------
 // Limit Batch Input
+// Batch values are numeric, so this input only accepts digits.
 // ---------------------------------------------------------
 
 batch.addEventListener("input", () => {
@@ -1063,6 +1127,8 @@ batch.addEventListener("input", () => {
 
 // ---------------------------------------------------------
 // Capitalize Section
+// Sections are usually displayed in uppercase letters, so this auto-
+// formats the text as the user types.
 // ---------------------------------------------------------
 
 section.addEventListener("input", () => {
@@ -1073,6 +1139,8 @@ section.addEventListener("input", () => {
 
 // ---------------------------------------------------------
 // Auto Focus Next Field (Optional)
+// Pressing Enter in a non-textarea field moves the cursor to the next
+// input, which makes long forms easier to complete quickly.
 // ---------------------------------------------------------
 
 const inputs = document.querySelectorAll(
@@ -1109,6 +1177,8 @@ inputs.forEach((input, index) => {
 
 // ---------------------------------------------------------
 // Initial State
+// The form begins in a disabled state until all required validation
+// checks pass successfully.
 // ---------------------------------------------------------
 
 registerBtn.disabled = true;
