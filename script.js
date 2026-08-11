@@ -267,12 +267,33 @@ contribution.addEventListener("input", () => {
 // Error Handling
 // The form visually marks invalid fields and places a message next
 // to them so the user knows exactly what to fix.
+// Do not color empty untouched fields red on initial page load.
 // =========================================================
 
+let formSubmitted = false;
+
+function shouldMarkField(input) {
+    const hasValue = input.value.trim() !== "";
+    const wasTouched = input.dataset.touched === "true" || formSubmitted;
+    return hasValue || wasTouched;
+}
+
 function showError(input, message) {
+    if (!shouldMarkField(input)) {
+        input.classList.remove("invalid");
+        input.classList.remove("valid");
+
+        const error =
+            input.parentElement.querySelector(".error");
+
+        if (error) {
+            error.textContent = "";
+        }
+
+        return;
+    }
 
     input.classList.remove("valid");
-
     input.classList.add("invalid");
 
     const error =
@@ -289,7 +310,6 @@ function showError(input, message) {
 function showSuccess(input) {
 
     input.classList.remove("invalid");
-
     input.classList.add("valid");
 
     const error =
@@ -890,11 +910,13 @@ const textInputs = [
 textInputs.filter(Boolean).forEach(input => {
 
     input.addEventListener("input", () => {
+        input.dataset.touched = "true";
         validateForm(); // validateForm() defined above; called here on every input event
         saveDraft(); // Save the current draft after each edit so refresh does not lose data
     });
 
     input.addEventListener("change", () => {
+        input.dataset.touched = "true";
         validateForm(); // validateForm() defined above; called here on change event
         saveDraft(); // Save the current draft after any change event
     });
@@ -905,6 +927,7 @@ genderRadios.forEach(radio =>
     radio.addEventListener(
         "change",
         () => {
+            genderRadios.forEach(item => { item.dataset.touched = "true"; });
             validateForm(); // validateForm() defined above; called here when gender changes
             saveDraft(); // Save updated radio selection so it persists after refresh
         }
@@ -915,6 +938,7 @@ experienceRadios.forEach(radio =>
     radio.addEventListener(
         "change",
         () => {
+            experienceRadios.forEach(item => { item.dataset.touched = "true"; });
             validateForm(); // validateForm() defined above; called here when experience changes
             saveDraft(); // Save updated experience selection so it persists after refresh
         }
@@ -925,6 +949,7 @@ skills.forEach(box =>
     box.addEventListener(
         "change",
         () => {
+            skills.forEach(item => { item.dataset.touched = "true"; });
             validateForm(); // validateForm() defined above; called here when skills change
             saveDraft(); // Save updated checkbox state so it persists after refresh
         }
@@ -935,6 +960,7 @@ interests.forEach(box =>
     box.addEventListener(
         "change",
         () => {
+            interests.forEach(item => { item.dataset.touched = "true"; });
             validateForm(); // validateForm() defined above; called here when interests change
             saveDraft(); // Save updated interest state so it persists after refresh
         }
@@ -945,6 +971,7 @@ days.forEach(box =>
     box.addEventListener(
         "change",
         () => {
+            days.forEach(item => { item.dataset.touched = "true"; });
             validateForm(); // validateForm() defined above; called here when day selections change
             saveDraft(); // Save updated day selection so it persists after refresh
         }
@@ -954,6 +981,7 @@ days.forEach(box =>
 agreement.addEventListener(
     "change",
     () => {
+        agreement.dataset.touched = "true";
         validateForm(); // validateForm() defined above; called here when agreement checkbox changes
         saveDraft(); // Save agreement state so the checked value remains after refresh
     }
@@ -1023,6 +1051,7 @@ function createSubmissionData() { // Defined at line 907; called from line 947
 form.addEventListener("submit", async function (e) { // submit listener; calls validateForm() and scrollToFirstError()
 
     e.preventDefault();
+    formSubmitted = true;
 
     if (!validateForm()) { // validateForm() defined above; called here before sending
 
