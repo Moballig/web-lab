@@ -132,6 +132,76 @@ const paymentProof = document.getElementById("paymentProof");
 const meetingTime = document.getElementById("meetingTime");
 
 const agreement = document.getElementById("agreement");
+const DRAFT_STORAGE_KEY = "sec-club-registration-draft";
+
+// -------------------------------
+// Draft Persistence
+// Keep partly filled form data even after refresh so users do not lose
+// information before submitting the registration form.
+// -------------------------------
+
+function saveDraft() {
+    if (!form) return;
+
+    try {
+        const draft = {};
+
+        form.querySelectorAll("input, select, textarea").forEach((field) => {
+            if (!field.name || field.type === "file") return;
+
+            if (field.type === "checkbox" || field.type === "radio") {
+                if (!draft[field.name]) draft[field.name] = [];
+                if (field.checked) draft[field.name].push(field.value);
+                return;
+            }
+
+            draft[field.name] = field.value;
+        });
+
+        localStorage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(draft));
+    } catch (error) {
+        console.warn("Draft could not be saved:", error);
+    }
+}
+
+function restoreDraft() {
+    if (!form) return;
+
+    try {
+        const savedDraft = localStorage.getItem(DRAFT_STORAGE_KEY);
+        if (!savedDraft) return;
+
+        const draft = JSON.parse(savedDraft);
+
+        form.querySelectorAll("input, select, textarea").forEach((field) => {
+            if (!field.name || field.type === "file") return;
+
+            if (!(field.name in draft)) return;
+
+            if (field.type === "checkbox" || field.type === "radio") {
+                const values = Array.isArray(draft[field.name]) ? draft[field.name] : [draft[field.name]];
+                field.checked = values.includes(field.value);
+                return;
+            }
+
+            field.value = draft[field.name];
+        });
+
+        updateCounter(motivation, motivationCount);
+        updateCounter(contribution, contributionCount);
+        validateForm();
+    } catch (error) {
+        console.warn("Draft could not be restored:", error);
+    }
+}
+
+function clearDraft() {
+    try {
+        localStorage.removeItem(DRAFT_STORAGE_KEY);
+    } catch (error) {
+        console.warn("Draft could not be cleared:", error);
+    }
+}
 
 // -------------------------------
 // Character Counter
@@ -819,50 +889,74 @@ const textInputs = [
 
 textInputs.filter(Boolean).forEach(input => {
 
-    input.addEventListener("input", validateForm); // validateForm() defined above; called here on every input event
+    input.addEventListener("input", () => {
+        validateForm(); // validateForm() defined above; called here on every input event
+        saveDraft(); // Save the current draft after each edit so refresh does not lose data
+    });
 
-    input.addEventListener("change", validateForm); // validateForm() defined above; called here on change event
+    input.addEventListener("change", () => {
+        validateForm(); // validateForm() defined above; called here on change event
+        saveDraft(); // Save the current draft after any change event
+    });
 
 });
 
 genderRadios.forEach(radio =>
     radio.addEventListener(
         "change",
-        validateForm // validateForm() defined above; called here when gender changes
+        () => {
+            validateForm(); // validateForm() defined above; called here when gender changes
+            saveDraft(); // Save updated radio selection so it persists after refresh
+        }
     )
 );
 
 experienceRadios.forEach(radio =>
     radio.addEventListener(
         "change",
-        validateForm // validateForm() defined above; called here when experience changes
+        () => {
+            validateForm(); // validateForm() defined above; called here when experience changes
+            saveDraft(); // Save updated experience selection so it persists after refresh
+        }
     )
 );
 
 skills.forEach(box =>
     box.addEventListener(
         "change",
-        validateForm // validateForm() defined above; called here when skills change
+        () => {
+            validateForm(); // validateForm() defined above; called here when skills change
+            saveDraft(); // Save updated checkbox state so it persists after refresh
+        }
     )
 );
 
 interests.forEach(box =>
     box.addEventListener(
         "change",
-        validateForm // validateForm() defined above; called here when interests change
+        () => {
+            validateForm(); // validateForm() defined above; called here when interests change
+            saveDraft(); // Save updated interest state so it persists after refresh
+        }
     )
 );
 
 days.forEach(box =>
     box.addEventListener(
         "change",
-        validateForm // validateForm() defined above; called here when day selections change
+        () => {
+            validateForm(); // validateForm() defined above; called here when day selections change
+            saveDraft(); // Save updated day selection so it persists after refresh
+        }
     )
 );
 
 agreement.addEventListener(
     "change",
-    validateForm // validateForm() defined above; called here when agreement checkbox changes
+    () => {
+        validateForm(); // validateForm() defined above; called here when agreement checkbox changes
+        saveDraft(); // Save agreement state so the checked value remains after refresh
+    }
 );
 // =========================================================
 // Part 3 - Form Submission, Loading, Modal & Reset
@@ -977,6 +1071,7 @@ form.addEventListener("submit", async function (e) { // submit listener; calls v
 
         loadingOverlay.classList.remove("active");
         registerBtn.disabled = false;
+        clearDraft(); // Clear persisted draft after the form is successfully submitted
         successModal.classList.add("active");
     } catch (error) {
         loadingOverlay.classList.remove("active");
@@ -1033,6 +1128,7 @@ closeModal.addEventListener("click", () => {
     motivationCount.textContent = "0";
     contributionCount.textContent = "0";
 
+    clearDraft(); // Clear saved draft when the user resets or closes the form successfully
     registerBtn.disabled = true;
 
 });
@@ -1069,6 +1165,7 @@ form.addEventListener("reset", () => {
         motivationCount.textContent = "0";
         contributionCount.textContent = "0";
 
+        clearDraft(); // Clearing the form should also remove the saved draft
         registerBtn.disabled = true;
 
     }, 10);
@@ -1187,6 +1284,7 @@ motivationCount.textContent = "0";
 
 contributionCount.textContent = "0";
 
+restoreDraft(); // Restore saved form values on page load if the user refreshed before submitting
 validateForm();
 
 // =========================================================
