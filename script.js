@@ -13,6 +13,7 @@ const nextSlideButtons = [...document.querySelectorAll(".slider-next")];
 let currentSlide = 0;
 let sliderTimer;
 
+
 // Show the selected slide and update the active dot state.
 function showSlide(index) { // Defined at line 17; called from lines 38, 55, 67-68
     currentSlide = (index + heroSlides.length) % heroSlides.length;
